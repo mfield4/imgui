@@ -53,6 +53,8 @@
 #include "imgui_impl_wgpu.h"
 #include <limits.h>
 #include <webgpu/webgpu.h>
+#include <webgpu/webgpu_cpp.h>
+
 
 // Dear ImGui prototypes from imgui_internal.h
 extern ImGuiID ImHashData(const void* data_p, size_t data_size, ImU32 seed = 0);
@@ -272,7 +274,7 @@ static WGPUProgrammableStageDescriptor ImGui_ImplWGPU_CreateShaderModule(const c
 
     WGPUProgrammableStageDescriptor stage_desc = {};
     stage_desc.module = wgpuDeviceCreateShaderModule(bd->wgpuDevice, &desc);
-    stage_desc.entryPoint = "main";
+    stage_desc.entryPoint = {"main", WGPU_STRLEN };
     return stage_desc;
 }
 
@@ -511,7 +513,7 @@ static void ImGui_ImplWGPU_CreateFontsTexture()
     // Upload texture to graphics system
     {
         WGPUTextureDescriptor tex_desc = {};
-        tex_desc.label = "Dear ImGui Font Texture";
+        tex_desc.label = { "Dear ImGui Font Texture", WGPU_STRLEN };
         tex_desc.dimension = WGPUTextureDimension_2D;
         tex_desc.size.width = width;
         tex_desc.size.height = height;
