@@ -25,6 +25,7 @@ add_library(imgui STATIC
         imstb_truetype.h
 )
 
+find_package(glfw3 CONFIG REQUIRED)
 
 target_include_directories(imgui PUBLIC .)
 target_link_libraries(imgui PUBLIC dawn::webgpu_dawn glfw)
